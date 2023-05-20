@@ -3,7 +3,7 @@
     class Conexao {
         private $host = "localhost";
         private $user = "root";
-        private $pwr = "root";
+        private $pwr = "";
         private $database = "cardapion";
         private $dsn;
         private $conn;
@@ -29,7 +29,17 @@
             }
             
         }
+
+        public function prepare($query)
+        {
+            return $this->conn->prepare($query);
+        }
+    
+        public function __destruct()
+        {
+            $this->conn = null;
+        }
+        
     }
 
-?>
 

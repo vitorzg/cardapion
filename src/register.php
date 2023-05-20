@@ -5,11 +5,12 @@
     $page = file_get_contents("../html/register.html");
     echo $page;
 
+
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         
         $db = new Conexao();
 
-        $query = $db->$conn->prepare("INSERT INTO users(login, nome, cpf, email, tel, data_nasc, senha) VALUES(:1, :2, :3, :4, :5, :6, :7)");
+        $query = $db->prepare("INSERT INTO users(login, nome, cpf, email, tel, data_nasc, senha) VALUES(:1, :2, :3, :4, :5, :6, :7)");
 
         $query->bindValue(":1", $_POST['login']);
         $query->bindValue(":2", $_POST['nome']);

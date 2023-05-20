@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="../js/script.js"></script>
     <title>Register User - CardapiOn</title>
 </head>
 <body>
+  <span id="aviso_senha">Senhas não coeencidem</span>
     <form method="POST" action="">
         <div>
           <label for="login">Login:</label>
@@ -24,8 +26,8 @@
         </div>
       
         <div>
-          <label for="datanasc">Data de Nascimento:</label>
-          <input type="date" id="datanasc" name="datanasc" required><br> 
+          <label for="data_nasc">Data de Nascimento:</label>
+          <input type="date" id="data_nasc" name="data_nasc" required><br> 
         </div>
       
         <div>  
@@ -48,7 +50,7 @@
             <input type="password" id="confsenha" name="confsenha" required>
         </div>
       
-            <button type= "submit">Enviar</button> 
+            <button type="submit" id="submit" name="submit">Enviar</button> 
     </form> 
 </body>
 </html>
