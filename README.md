@@ -11,17 +11,17 @@ O CardapiOn é um sistema simples de cardápio dinâmico, desenvolvido utilizand
 
 ## Instalação ⚙️
 
-1. Clone o repositório do CardapiOn em sua máquina local.
-2. Execute o arquivo de instalação `install.sh` para configurar as dependências necessárias.
-3. Configure o banco de dados de acordo com as instruções fornecidas no arquivo `DB_Cardapion.sql`.
-4. Inicie o servidor local usando sua ferramenta de sua usabilidade.
+1. Execute um `fork` do repositório para seu perfil.
+2. `Clone` o repositório do CardapiOn em sua máquina local.
+3. Configure o banco de dados de acordo com o SQL fornecido no arquivo `/server/DB_Cardapion.sql`.
+4. Inicie o servidor local usando a ferramenta de sua usabilidade.
 5. Acesse o CardapiOn em seu navegador através da URL `http://localhost:3000`.
 
 ## Contribuição 👥
 
 O projeto CardapiOn está em desenvolvimento e está sendo produzido com a finalidade de compor uma nota bimestral da faculdade de Ánalise e Desenvolvimento de Sistemas, Alunos envolvidos:
 
-Vitor Augsuto Zucon Gonçalves - Backend (PHP);
+Vitor Augsuto Zucon Gonçalves - Backend;
 Maria Eduarda Pereira - Frontend;
 
 ## Aviso ⚠️
@@ -31,9 +31,8 @@ O CardapiOn ainda está em desenvolvimento, e pode conter bugs ou funcionalidade
 Agradecemos por seu interesse em nosso projeto e esperamos que ele seja útil para você!
 
 ## Contato 📧
-<hr>
 
-### 🛠 Vitor Zucon:
+#### 🛠 Vitor Zucon:
 
 <a href="https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BNABM7IfHQdu0B0DW%2FpdhOw%3D%3D" ><img heigh= 114rem width= 114rem src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
@@ -42,7 +41,7 @@ Agradecemos por seu interesse em nosso projeto e esperamos que ele seja útil pa
 <a href="mailto:vitor.zucon25@gmail.com" ><img heigh=88rem width=88rem src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 <hr>
 
-### 🎨 Maria Eduarda:
+#### 🎨 Maria Eduarda:
 
 <a href="https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BNABM7IfHQdu0B0DW%2FpdhOw%3D%3D" ><img heigh= 114rem width= 114rem src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
