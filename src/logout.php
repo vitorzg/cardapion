@@ -2,7 +2,7 @@
 
     require_once('../classes/Autenticar.php');
 
-    $sair = new Autenticar("PLacehoulder","PLacehoulder");
+    $sair = new Autenticar("","");
     $sair->encerrarSessao();
     exit;
 
