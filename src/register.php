@@ -1,5 +1,7 @@
 <?php
 
+    // Verificar se há uma sessão//
+
     require_once("../classes/Conexao.php");
 
     $page = file_get_contents("../html/register.html");
@@ -24,7 +26,8 @@
 
         $db = NULL;
 
-        echo "Usuário Registrado";
+        echo "<span id=\"user_registrado\">Usuário Registrado</span>";
     }
 
 ?>
+
