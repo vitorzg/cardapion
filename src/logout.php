@@ -4,6 +4,7 @@
 
     $sair = new Autenticar("","");
     $sair->encerrarSessao();
+    header("location: login.php");
     exit;
 
 

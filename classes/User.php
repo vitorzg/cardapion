@@ -1,6 +1,6 @@
 <?php
 
-    class User {
+    class Usuario {
         private $login;
         private $senha;
         private $cpf;
@@ -8,8 +8,9 @@
         private $datanasc;
         private $email;
         private $tel;
+        private $user_criou;
 
-        public function __construct($login,$senha,$cpf,$nome,$datanasc,$email,$tel)
+        public function __construct($login,$senha,$cpf,$nome,$datanasc,$email,$tel,$user_criou)
         {
             $this->login = $login;
             $this->senha = $senha;
@@ -18,101 +19,108 @@
             $this->datanasc = $datanasc;
             $this->email = $email;
             $this->tel = $tel;
+            $this->user_criou = $user_criou;
         }
 
-        public function getLogin()
-        {
-            return $this->login;
+        
+
+        public function gravarUsuario(){
+            require_once("Conexao.php");
+
+            $db = new Conexao();
+    
+            $query = $db->prepare("INSERT INTO users(login,
+                                                     nome, 
+                                                     cpf, 
+                                                     email, 
+                                                     tel, 
+                                                     data_nasc, 
+                                                     senha, 
+                                                     user_criou) VALUES(:1, :2, :3, :4, :5, :6, :7, :8)");
+    
+            $query->bindValue(":1", $this->login);
+            $query->bindValue(":2", $this->nome);
+            $query->bindValue(":3", $this->cpf);
+            $query->bindValue(":4", $this->email);
+            $query->bindValue(":5", $this->tel);
+            $query->bindValue(":6", $this->datanasc);
+            $query->bindValue(":7", $this->senha);
+            $query->bindValue(":8", $this->user_criou);
+    
+            $query->execute();
+
+            $db->__destruct();
+
+            return true;
+
         }
 
-        // Setter para a propriedade $login
-        public function setLogin($login)
-        {
-            $this->login = $login;
-        }
+        public function lerUsuario(){
+            require_once("Conexao.php");
 
-        // Getter para a propriedade $senha
-        public function getSenha()
-        {
-            return $this->senha;
-        }
+            $db = new Conexao();
+            $query = $db->prepare("SELECT * FROM users WHERE login= :1");
+            $query->bindValue("1",$this->login);
+            $query->execute();
+            $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
-        // Setter para a propriedade $senha
-        public function setSenha($senha)
-        {
-            $this->senha = $senha;
-        }
-
-        // Getter para a propriedade $cpf
-        public function getCpf()
-        {
-            return $this->cpf;
-        }
-
-        // Setter para a propriedade $cpf
-        public function setCpf($cpf)
-        {
-            $this->cpf = $cpf;
-        }
-
-        // Getter para a propriedade $nome
-        public function getNome()
-        {
-            return $this->nome;
-        }
-
-        // Setter para a propriedade $nome
-        public function setNome($nome)
-        {
-            $this->nome = $nome;
-        }
-
-        // Getter para a propriedade $datanasc
-        public function getDatanasc()
-        {
-            return $this->datanasc;
-        }
-
-        // Setter para a propriedade $datanasc
-        public function setDatanasc($datanasc)
-        {
-            $this->datanasc = $datanasc;
-        }
-
-        // Getter para a propriedade $email
-        public function getEmail()
-        {
-            return $this->email;
-        }
-
-        // Setter para a propriedade $email
-        public function setEmail($email)
-        {
-            $this->email = $email;
-        }
-
-        // Getter para a propriedade $tel
-        public function getTel()
-        {
-            return $this->tel;
-        }
-
-        // Setter para a propriedade $tel
-        public function setTel($tel)
-        {
-            $this->tel = $tel;
-        }
-
-        public function gravar(){
             $dados = [];
-            $dados["login"] = $this->login;
-            $dados["senha"] = $this->senha;
-            $dados["cpf"] = $this->cpf;
-            $dados["nome"] = $this->nome;
-            $dados['datanasc'] = $this->datanasc;
-            $dados["email"] = $this->email;
-            $dados["tel"] = $this->tel;
+            $dados['login'] = $usuario['login'];
+            $dados['nome'] = $usuario['nome'];
+            $dados['cpf'] = $usuario['cpf'];
+            $dados['email'] = $usuario['email'];
+            $dados['tel'] = $usuario['tel'];
+            $dados['data_nasc'] = $usuario['data_nasc'];
+            $dados['senha'] = $usuario['senha'];
+
+            $db->__destruct();
+
             return $dados;
+        }
+
+        public function deletarUsuario(){
+
+            require_once("Conexao.php");
+            
+            $db = new Conexao();
+            $query = $db->prepare("DELETE FROM users WHERE login = :1");
+            $query->bindValue("1",$this->login);
+            $query->execute();
+            $db->__destruct();
+            
+            return true;
+            
+        }
+
+        public function atualizarUsuario(){
+            require_once("Conexao.php");
+
+            $db = new Conexao();
+            $query = $db->prepare("UPDATE users 
+                                   SET nome = :2,
+                                       cpf = :3,
+                                       email = :4,
+                                       tel = :5,
+                                       data_nasc = :6,
+                                       senha = :7,
+                                       user_criou = :8 
+                                    WHERE login = :1");
+
+            $query->bindValue("2", $this->nome);
+            $query->bindValue("3", $this->cpf);
+            $query->bindValue("4", $this->email);
+            $query->bindValue("5", $this->tel);
+            $query->bindValue("6", $this->datanasc);
+            $query->bindValue("7", $this->senha);
+            $query->bindValue("8", $this->user_criou);
+            $query->bindValue("1",$this->login);
+
+            $query->execute();
+
+            $db->__destruct();
+
+            return true;
+
         }
 
     }

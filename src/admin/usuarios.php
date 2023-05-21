@@ -62,12 +62,12 @@
                     echo "<td>" . $row["email"] . "</td>";
                     echo "<td>" . $row["tel"] . "</td>";
                     echo "<td>" . $row["user_criou"] . "</td>";
-                    echo "<td><a href=\"#\">🖊</a></td>";
-                    echo "<td><a href=\"#\">❌</a></td>";
+                    echo "<td><a href=\"./script/uptUsuarios.php?login={$row['login']}\">🖊</a></td>";
+                    echo "<td><a href=\"./script/delUsuarios.php?login={$row['login']}\">❌</a></td>";
                     echo "</tr>";
                 }
 
-                $db = NULL;
+                $db->__destruct();
             
             ?>
 

@@ -23,11 +23,11 @@
             if ($usuario && $this->senha == $usuario['senha']) {
                 session_start();
                 $_SESSION = $usuario;
-                $db = null;
+                $db->__destruct();
                 return true;
             }
 
-            $db = null;
+            $db->__destruct();
             return false;
         }
 
@@ -42,7 +42,7 @@
         public function encerrarSessao() {
             session_start();
             session_destroy();
-            header("location: login.php");
+            return true;
         }
     }
 

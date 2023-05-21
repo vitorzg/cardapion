@@ -33,7 +33,12 @@
         {
             return $this->conn->prepare($query);
         }
-    
+        
+        public function query($query)
+        {
+            return $this->conn->query($query);
+        }
+
         public function __destruct()
         {
             $this->conn = null;
