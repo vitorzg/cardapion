@@ -9,14 +9,16 @@
     if($verificar->verificarAutenticacao() == false){
         header("location: ../../login.php");    
         exit;
-    } else if(isset($cod) && $_SERVER['REQUEST_METHOD'] === "GET"){
+    } 
+    
+    if(isset($cod) && $_SERVER['REQUEST_METHOD'] === "GET"){
         
 
         $usuario = new Usuario($cod,'','','','','','','');
         $dados = $usuario->lerUsuario();
         $usuario = NULL;
 
-    } if($_SERVER['REQUEST_METHOD'] === "POST"){
+    } else if($_SERVER['REQUEST_METHOD'] === "POST"){
 
         $update = new Usuario($cod,
                               md5($_POST['senha']),

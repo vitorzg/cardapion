@@ -11,7 +11,9 @@
         header("location: ../../login.php");
         exit;
 
-    } else if(isset($cod)){
+    }
+    
+    if(isset($cod)){
 
         $deletar = new Usuario($cod,'','','','','','','');
         

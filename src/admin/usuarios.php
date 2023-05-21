@@ -36,7 +36,7 @@
             <a href="../register.php"><button>➕ Adicionar</button></a>
             <input type="search" name="buscar" id="buscar" placeholder="🔎 Procurar...">
         </div>
-        <table border="1" >
+        <table border="1" align="center">
 
             <tr>
                 <th>Nome Completo</th>

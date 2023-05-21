@@ -4,28 +4,22 @@
 
         private $nome;
         private $descricao;
-        private $foto;
+        private $id_foto;
         private $preco;
         private $categoria;
 
-        public function __construct($nome,$descricao,$foto,$preco,$categoria)
+        public function __construct($nome,$descricao,$id_foto,$preco,$categoria)
         {
             $this->nome = $nome;
             $this->descricao = $descricao;
-            $this->foto = $foto;
+            $this->id_foto = $id_foto;
             $this->preco = $preco;
             $this->categoria = $categoria;
         }
 
 
         public function gravarComida(){
-            $dadosComida = [];
-            $dadosComida['nome'] = $this->nome;
-            $dadosComida['descricao'] = $this->descricao;
-            //$dadosComida['foto'] = $this->foto;
-            $dadosComida['preco'] = $this->preco;
-            $dadosComida['categoria'] = $this->categoria;
-            return $dadosComida;
+            
         }
 
     }

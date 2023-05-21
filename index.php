@@ -37,7 +37,7 @@
                 <th><a href="#"><img src="#" alt="imgComidas"><h2>Comidas</h2></a></th>
             </tr>
             <tr>
-                <th><a href="#"><img src="#" alt="imgCategorias"><h2>Categorías</h2></a></th>
+                <th><a href="./src/admin/categorias.php"><img src="#" alt="imgCategorias"><h2>Categorías</h2></a></th>
                 <th><a href="#"><img src="#" alt="imgInterrogação"><h2>Em Breve</h2></a></th>
                 <th><a href="#"><img src="#" alt="imgConfiguracoes"><h2>Configurações</h2></a></th>
             </tr>
