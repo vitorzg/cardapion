@@ -1,5 +1,4 @@
 <?php
-
     class Conexao {
         private $host = "localhost";
         private $user = "root";
