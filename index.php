@@ -29,18 +29,20 @@
 
     ?>
     </header>
+
     <main>
         <table border="1" >
             <tr>
                 <th><a href="#"><img src="#" alt="imgCardapio"><h2>Cardápio</h2></a></th>
                 <th><a href="./src/admin/usuarios.php"><img src="#" alt="imgUsuario"><h2>Usuários</h2></a></th>
-                <th><a href="#"><img src="#" alt="imgComidas"><h2>Comidas</h2></a></th>
+                <th><a href="./src/admin/comidas.php"><img src="#" alt="imgComidas"><h2>Comidas</h2></a></th>
             </tr>
             <tr>
                 <th><a href="./src/admin/categorias.php"><img src="#" alt="imgCategorias"><h2>Categorías</h2></a></th>
                 <th><a href="#"><img src="#" alt="imgInterrogação"><h2>Em Breve</h2></a></th>
                 <th><a href="#"><img src="#" alt="imgConfiguracoes"><h2>Configurações</h2></a></th>
             </tr>
+        <table>
     </main>
     <footer>
         <p>Copyright (c) 2023 Vitor Zucon.</p>

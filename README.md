@@ -4,10 +4,10 @@ O CardapiOn é um sistema simples de cardápio dinâmico, desenvolvido utilizand
 
 ## Funcionalidades 🚀
 
-- Criação e gerenciamento de categorias de comidas
-- Adição, edição e exclusão de comidas dentro das categorias
-- Personalização das informações das comidas, como nome, descrição, preço e foto
-- Interface intuitiva e amigável para facilitar a interação dos usuários
+- Criação e gerenciamento de categorias e comidas para um cardápio online.
+- Adição, edição e exclusão de comidas dentro das categorias bem como as própias categorias.
+- Personalização das informações das comidas, como nome, descrição, preço e foto.
+- Interface intuitiva e amigável para facilitar a interação dos usuários.
 
 ## Instalação ⚙️
 

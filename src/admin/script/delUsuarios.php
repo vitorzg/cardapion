@@ -16,13 +16,14 @@
     if(isset($cod)){
 
         $deletar = new Usuario($cod,'','','','','','','');
+        $deletar->deletarUsuario();
         
+        header("location: ../usuarios.php");
+        exit;
 
-        if ($deletar->deletarUsuario() == true) {
-            header("location: ../usuarios.php");
+    } else{
+        header("location: ../usuarios.php");
             exit;
-        }
-
     }
 
 

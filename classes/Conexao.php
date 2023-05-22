@@ -43,6 +43,11 @@
         {
             $this->conn = null;
         }
+
+        public function lastInsertId()
+        {
+            return $this->conn->lastInsertId();
+        }
         
     }
 

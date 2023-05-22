@@ -18,6 +18,9 @@
 
         header("location: ../categorias.php");
         exit;
+    } else{
+        header("location: ../categorias.php");
+        exit;
     }
 
 ?>

@@ -33,6 +33,7 @@
     ?>
     </header>
     <main>
+        <a href="../../index.php"><button>Menu</button></a>
         <div>
             <?php
                 $cod = filter_input(INPUT_GET, "status");
@@ -84,7 +85,7 @@
         
         ?>
 
-        <table border="1" align="center">
+        <table border="1" align="center" cellpadding="10">
         <tr>
             <th>ID Categoria</th>
             <th>Nome da Categoria</th>

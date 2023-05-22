@@ -32,11 +32,12 @@
     ?>
     </header>
     <main>
+        <a href="../../index.php"><button>Menu</button></a>
         <div>
             <a href="../register.php"><button>➕ Adicionar</button></a>
             <input type="search" name="buscar" id="buscar" placeholder="🔎 Procurar...">
         </div>
-        <table border="1" align="center">
+        <table border="1" align="center" cellpadding="10">
 
             <tr>
                 <th>Nome Completo</th>
