@@ -1,10 +1,20 @@
 <?php
-
+    require_once("Conexao.php");
     class Comida {
-
+        
+        /**
+         * gravarComida
+         *
+         * @param  mixed $nome
+         * @param  mixed $categoria
+         * @param  mixed $descricao
+         * @param  mixed $preco
+         * @param  mixed $foto_id
+         * @param  mixed $user_criou
+         * @return void
+         */
         public function gravarComida($nome,$categoria,$descricao,$preco,$foto_id,$user_criou){
-            require_once("Conexao.php");
-
+            
             $db = new Conexao();
 
             $queryCategoria = $db->prepare("SELECT user_criou_id FROM categorias WHERE id_categoria = :1");
@@ -47,10 +57,41 @@
 
             return true;
         }
-
+        
+        
+        
+        
+        
+        /**
+         * deletarComida
+         *
+         * @param  mixed $id
+         * @return bool
+         */
         public function deletarComida($id){
 
+            $db = new Conexao();
+            $queryFoto = $db->prepare("SELECT comida_foto_id FROM comidas WHERE id_comida = :1");
+            $queryFoto->bindValue(":1",$id);
+            $queryFoto->execute();
+            $id_foto = $queryFoto->fetch(PDO::FETCH_ASSOC);
+
+            $queryCaminho = $db->prepare("SELECT path FROM fotos WHERE id_fotos = :2");
+            $queryCaminho->bindValue(":2",$id_foto['comida_foto_id']);
+            $queryCaminho->execute();
+            $caminho = $queryCaminho->fetchColumn();
+
+            $query = $db->prepare("DELETE FROM fotos WHERE id_fotos = :3");
+            $query->bindValue(":3",$id_foto['comida_foto_id']);
+            $query->execute();
+            
+            unlink(realpath($caminho));
+            
+            $db->__destruct();
+
+            return true;
         }
+
 
     }
 

@@ -22,7 +22,15 @@
 </head>
 <body>
     <header>
-
+        <?php
+            echo "
+                <img src=\"#\" alt=\"logoCardapiON\">
+                <div>
+                    <p>Bem-Vindo(a) ". $_SESSION['nome'] . "</p>
+                    <a href=\"../logout.php\"><button>Logout</button></a>
+                </div>
+                ";
+        ?>
     </header>
     <main>
         <a href="../../index.php"><button>Menu</button></a>
@@ -63,21 +71,21 @@
                         echo "
                             <tr>
                                 <td>".$row['id_comida']."</td>
-                                <td><img height=\"70\" src=".$preview['path']." alt=\"previewImagemComida\"></td>
+                                <td><img height=\"90\" src=".$preview['path']." alt=\"previewImagemComida\"></td>
                                 <td>".$row['nome_comida']."</td>
                                 <td>".$row['descricao']."</td>
                                 <td>".$categoria['nome_categoria']."</td>
                                 <td>".$row['preco']."</td>
                                 <td>".$row['user_criou_id']."</td>
                                 <td><a href=\"#\">🖊</a></td>
-                                <td><a href=\"#\">❌</a></td>
+                                <td><a href=\"./script/delComidas.php?id={$row['id_comida']}\">❌</a></td>
                             </tr>
                         ";
                     }
                 } else{
                     echo "
                         <tr>
-                            <td colspan=\"5\">Não há Comidas Criadas até o Momento.</td>
+                            <td colspan=\"9\">Não há Comidas Criadas até o Momento.</td>
                         </tr>
                     ";
                 }

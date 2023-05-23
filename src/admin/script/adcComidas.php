@@ -28,8 +28,8 @@
 
             $pasta = "../../server/pictures/";
 
-            if (!is_dir($pasta)) {
-                mkdir($pasta, 0777, true);
+            if (!is_dir("../".$pasta)) {
+                mkdir("../".$pasta, 0777, true);
             }
 
             $nome_foto = $foto['name'];
