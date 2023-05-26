@@ -60,14 +60,6 @@
         
         
         
-        
-        
-        /**
-         * deletarComida
-         *
-         * @param  mixed $id
-         * @return bool
-         */
         public function deletarComida($id){
 
             $db = new Conexao();
@@ -79,17 +71,29 @@
             $queryCaminho = $db->prepare("SELECT path FROM fotos WHERE id_fotos = :2");
             $queryCaminho->bindValue(":2",$id_foto['comida_foto_id']);
             $queryCaminho->execute();
-            $caminho = $queryCaminho->fetchColumn();
+            $caminho = "C:/xampp/htdocs/cardapion".$queryCaminho->fetchColumn();
 
-            $query = $db->prepare("DELETE FROM fotos WHERE id_fotos = :3");
-            $query->bindValue(":3",$id_foto['comida_foto_id']);
-            $query->execute();
+            if ($caminho === false) {
+                $_SESSION['error'] = "Erro ao obter o caminho da foto.";
+                return false;
+            }
             
-            unlink(realpath($caminho));
-            
-            $db->__destruct();
 
-            return true;
+            if(unlink($caminho)){
+                $query = $db->prepare("DELETE FROM fotos WHERE id_fotos = :3");
+                $query->bindValue(":3",$id_foto['comida_foto_id']);
+                $query->execute();
+                $db->__destruct();
+                
+                return true;
+            }else{
+                $error = error_get_last();
+                $_SESSION['error'] = $error['message'];
+                $db->__destruct();
+                return false;
+            }
+
+
         }
 
 

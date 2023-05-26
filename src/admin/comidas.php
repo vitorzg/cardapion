@@ -68,10 +68,12 @@
                         $queryCategoria->execute();
                         $categoria = $queryCategoria->fetch(PDO::FETCH_ASSOC);
 
+                        $caminho = "../../".$preview['path'];
+
                         echo "
                             <tr>
                                 <td>".$row['id_comida']."</td>
-                                <td><img height=\"90\" src=".$preview['path']." alt=\"previewImagemComida\"></td>
+                                <td><img height=\"90\" src=".$caminho." alt=\"previewImagemComida\"></td>
                                 <td>".$row['nome_comida']."</td>
                                 <td>".$row['descricao']."</td>
                                 <td>".$categoria['nome_categoria']."</td>

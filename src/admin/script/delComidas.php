@@ -16,9 +16,12 @@
     if(isset($cod)){
         
         $deletar = new Comida();
-        if($deletar->deletarComida($cod)){
+        if($deletar->deletarComida($cod) == true){
             header("location: ../comidas.php");
             exit;
+        } else{
+            echo "Não foi possivel deletar o arquivo do servidor de imagens";
+
         }
 
     }

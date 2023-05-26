@@ -26,10 +26,10 @@
                 die("Imagem muito grande!! MAX: 100MB");
             }
 
-            $pasta = "../../server/pictures/";
+            $pasta = "/server/pictures/";
 
-            if (!is_dir("../".$pasta)) {
-                mkdir("../".$pasta, 0777, true);
+            if (!is_dir("../../..".$pasta)) {
+                mkdir("../../..".$pasta, 0777, true);
             }
 
             $nome_foto = $foto['name'];
@@ -39,7 +39,7 @@
 
             if ($extensao == 'jpeg' || $extensao == 'jpg' || $extensao == 'png' || $extensao == 'gif') {
 
-                $upload = move_uploaded_file($foto['tmp_name'],"../" . $path);
+                $upload = move_uploaded_file($foto['tmp_name'],"../../.." . $path);
 
                 $db = new Conexao();
                 $query = $db->prepare("INSERT INTO fotos(users_upload_id,
