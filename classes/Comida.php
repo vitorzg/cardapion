@@ -1,101 +1,105 @@
 <?php
     require_once("Conexao.php");
     class Comida {
-        
-        /**
-         * gravarComida
-         *
-         * @param  mixed $nome
-         * @param  mixed $categoria
-         * @param  mixed $descricao
-         * @param  mixed $preco
-         * @param  mixed $foto_id
-         * @param  mixed $user_criou
-         * @return void
-         */
-        public function gravarComida($nome,$categoria,$descricao,$preco,$foto_id,$user_criou){
-            
+                
+        public function gravarComida($nome, $categoria, $descricao, $preco, $foto_id, $user_criou) {
             $db = new Conexao();
+        
+            $query = $db->prepare("
+                INSERT INTO comidas (
+                    categoria_comida_id,
+                    user_criou_id,
+                    categorias_user_criou_id,
+                    fotos_users_upload_id,
+                    comida_foto_id,
+                    nome_comida,
+                    descricao,
+                    preco
+                )
+                SELECT
+                    :categoria,
+                    :user_criou,
+                    (SELECT user_criou_id FROM categorias WHERE id_categoria = :categoria),
+                    (SELECT users_upload_id FROM fotos WHERE id_fotos = :foto_id),
+                    :foto_id,
+                    :nome,
+                    :descricao,
+                    :preco
+            ");
+        
+            $query->bindValue(":categoria", $categoria);
+            $query->bindValue(":user_criou", $user_criou);
+            $query->bindValue(":foto_id", $foto_id);
+            $query->bindValue(":nome", $nome);
+            $query->bindValue(":descricao", $descricao);
+            $query->bindValue(":preco", $preco);
+            $query->execute();
+        
+            $db->__destruct();
+        
+            return true;
+        }
+        
+        
+        public function deletarComida($id){
+            $db = new Conexao();
+        
+            $query = $db->prepare("
+                SELECT c.comida_foto_id, f.path
+                FROM comidas c
+                JOIN fotos f ON c.comida_foto_id = f.id_fotos
+                WHERE c.id_comida = :id
+            ");
+            $query->bindValue(":id", $id);
+            $query->execute();
+        
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            $id_foto = $result['comida_foto_id'];
+            $caminho = "C:/xampp/htdocs/cardapion".$result['path'];
+        
+            if ($caminho === false) {
+                $_SESSION['error'] = "Erro ao obter o caminho da foto.";
+                return false;
+            }
+        
+            if (unlink($caminho)) {
+                $queryDeleteFoto = $db->prepare("DELETE FROM fotos WHERE id_fotos = :id_foto");
+                $queryDeleteFoto->bindValue(":id_foto", $id_foto);
+                $queryDeleteFoto->execute();
+                $db->__destruct();
+        
+                return true;
+            } else {
+                $error = error_get_last();
+                $_SESSION['error'] = $error['message'];
+                $db->__destruct();
+                return false;
+            }
+        }
+        
+        public function alterarComida($id, $nome,$categoria, $descricao, $preco, $foto_id){
+            $db = new Conexao();
+            $query = $db->prepare("UPDATE comidas SET nome_comida = :1,
+                                                      descricao = :2,
+                                                      preco = :3,
+                                                      categoria_comida_id = :categoria,
+                                                      comida_foto_id = :foto_id,
+                                                      categorias_user_criou_id = (SELECT user_criou_id FROM categorias WHERE id_categoria = :categoria),
+                                                      fotos_users_upload_id = (SELECT users_upload_id FROM fotos WHERE id_fotos = :foto_id)
+                                                  WHERE id_comida = :id");
 
-            $queryCategoria = $db->prepare("SELECT user_criou_id FROM categorias WHERE id_categoria = :1");
-            $queryCategoria->bindValue(":1",$categoria);
-            $queryCategoria->execute();
-            $user_criou_categoria_id = $queryCategoria->fetch(PDO::FETCH_ASSOC);
-
-            $queryFoto = $db->prepare("SELECT users_upload_id FROM fotos WHERE id_fotos = :1");
-            $queryFoto->bindValue(":1",$foto_id);
-            $queryFoto->execute();
-            $user_upload_id = $queryFoto->fetch(PDO::FETCH_ASSOC);
-
-            $query = $db->prepare("INSERT INTO comidas(categoria_comida_id,
-                                                       user_criou_id,
-                                                       categorias_user_criou_id,
-                                                       fotos_users_upload_id,
-                                                       comida_foto_id,
-                                                       nome_comida,
-                                                       descricao,
-                                                       preco) VALUES(:1,
-                                                                     :2,
-                                                                     :3,
-                                                                     :4,
-                                                                     :5,
-                                                                     :6,
-                                                                     :7,
-                                                                     :8)");
-
-            $query->bindValue(":1", $categoria);
-            $query->bindValue(":2", $user_criou);
-            $query->bindValue(":3", $user_criou_categoria_id['user_criou_id']);
-            $query->bindValue(":4", $user_upload_id['users_upload_id']);
-            $query->bindValue(":5", $foto_id);
-            $query->bindValue(":6", $nome);
-            $query->bindValue(":7", $descricao);
-            $query->bindValue(":8", $preco);
+            $query->bindValue(":1",$nome);
+            $query->bindValue(":2",$descricao);
+            $query->bindValue(":3",$preco);
+            $query->bindValue(":categoria",$categoria);
+            $query->bindValue(":foto_id",$foto_id);
+            $query->bindValue(":id",$id);
             $query->execute();
 
             $db->__destruct();
 
             return true;
         }
-        
-        
-        
-        public function deletarComida($id){
-
-            $db = new Conexao();
-            $queryFoto = $db->prepare("SELECT comida_foto_id FROM comidas WHERE id_comida = :1");
-            $queryFoto->bindValue(":1",$id);
-            $queryFoto->execute();
-            $id_foto = $queryFoto->fetch(PDO::FETCH_ASSOC);
-
-            $queryCaminho = $db->prepare("SELECT path FROM fotos WHERE id_fotos = :2");
-            $queryCaminho->bindValue(":2",$id_foto['comida_foto_id']);
-            $queryCaminho->execute();
-            $caminho = "C:/xampp/htdocs/cardapion".$queryCaminho->fetchColumn();
-
-            if ($caminho === false) {
-                $_SESSION['error'] = "Erro ao obter o caminho da foto.";
-                return false;
-            }
-            
-
-            if(unlink($caminho)){
-                $query = $db->prepare("DELETE FROM fotos WHERE id_fotos = :3");
-                $query->bindValue(":3",$id_foto['comida_foto_id']);
-                $query->execute();
-                $db->__destruct();
-                
-                return true;
-            }else{
-                $error = error_get_last();
-                $_SESSION['error'] = $error['message'];
-                $db->__destruct();
-                return false;
-            }
-
-
-        }
-
 
     }
 

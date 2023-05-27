@@ -79,7 +79,7 @@
                                 <td>".$categoria['nome_categoria']."</td>
                                 <td>".$row['preco']."</td>
                                 <td>".$row['user_criou_id']."</td>
-                                <td><a href=\"#\">🖊</a></td>
+                                <td><a href=\"./script/uptComidas.php?id={$row['id_comida']}&cat={$row['categoria_comida_id']}\">🖊</a></td>
                                 <td><a href=\"./script/delComidas.php?id={$row['id_comida']}\">❌</a></td>
                             </tr>
                         ";
