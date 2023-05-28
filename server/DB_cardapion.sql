@@ -1,8 +1,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
-
+SET time_zone = "-03:00";
 
 --
 -- Banco de dados: `cardapion`
@@ -31,7 +30,7 @@ CREATE TABLE `comidas` (
   `nome_comida` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `descricao` text COLLATE utf8_bin DEFAULT NULL,
   `preco` decimal(6,0) NOT NULL,
-  `categoria_comida_id` int(10) UNSIGNED NOT NULL,
+  `categoria_comida_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `comida_foto_id` int(10) UNSIGNED NOT NULL,
   `categorias_user_criou_id` varchar(20) COLLATE utf8_bin NOT NULL,
   `fotos_users_upload_id` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -130,24 +129,12 @@ ALTER TABLE `fotos`
 --
 
 --
--- Limitadores para a tabela `categorias`
---
-ALTER TABLE `categorias`
-  ADD CONSTRAINT `categorias_ibfk_1` FOREIGN KEY (`user_criou_id`) REFERENCES `users` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Limitadores para a tabela `comidas`
 --
 ALTER TABLE `comidas`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`categoria_comida_id`) REFERENCES `categorias` (`id_categoria`),
   ADD CONSTRAINT `categoria_ibfk_2` FOREIGN KEY (`categorias_user_criou_id`) REFERENCES `categorias` (`user_criou_id`),
-  ADD CONSTRAINT `comidas_ibfk_1` FOREIGN KEY (`user_criou_id`) REFERENCES `users` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `comidas_ibfk_2` FOREIGN KEY (`comida_foto_id`,`fotos_users_upload_id`) REFERENCES `fotos` (`id_fotos`, `users_upload_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `fotos`
---
-ALTER TABLE `fotos`
-  ADD CONSTRAINT `fotos_ibfk_1` FOREIGN KEY (`users_upload_id`) REFERENCES `users` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
+INSERT INTO `users` (`login`, `nome`, `cpf`, `email`, `tel`, `data_nasc`, `senha`, `user_criou`) VALUES ('admin', 'ADMINISTRADOR', '12345678912', 'contato@cardapion.com.br', '18997123456', '28-05-2023', MD5('admin'), 'APP_ADM');
