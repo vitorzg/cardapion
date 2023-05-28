@@ -24,11 +24,10 @@
     $query->execute();
     $comida = $query->fetch(PDO::FETCH_ASSOC);
 
-    $db->__destruct();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (isset($_FILES['foto'])) {
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             
             $foto = $_FILES['foto'];
 
@@ -46,18 +45,35 @@
                     if (!is_dir("../../..".$pasta)) {
                         mkdir("../../..".$pasta, 0777, true);
                     }
+                    
+                    $queryPath = $db->prepare("SELECT * FROM fotos WHERE id_fotos = (SELECT comida_foto_id FROM comidas WHERE id_comida = :id)");
+                    $queryPath->bindValue(":id", $cod);
+                    $queryPath->execute();
+                    $fotoSQL = $queryPath->fetch(PDO::FETCH_ASSOC);
+                    $caminho = "C:/xampp/htdocs/cardapion" . $fotoSQL['path'];
+
+                    if (unlink($caminho)){
+                        $gravarFoto = new Foto();
+                        $id_foto = $gravarFoto->gravarFoto($foto['name'],uniqid(),$foto['tmp_name'],$pasta);
     
-                    $gravarFoto = new Foto();
-                    $id_foto = $gravarFoto->gravarFoto($foto['name'],uniqid(),$foto['tmp_name'],$pasta);
+                        $comida = new Comida();
+                        $comida->alterarComida($cod,$_POST['nome_comida'],$_POST['categoria'],$_POST['descricao'],$_POST['preco'],$id_foto);
 
-                    $comida = new Comida();
-                    $comida->alterarComida($cod,$_POST['nome_comida'],$_POST['categoria'],$_POST['descricao'],$_POST['preco'],$id_foto);
+                        $gravarFoto->deletarFoto($fotoSQL['id_fotos']);
 
-                    header("location: ../comidas.php");
-                    exit;
+                        $db->__destruct();
+    
+                        header("location: ../comidas.php");
+                        exit;
+                    } else {
+                        $_SESSION['error'] = "erro ao excluir o arquivo antigo!! Tente novamente.";
+                        header("location: adcComidas.php");
+                        exit;
+                    }
+
 
                 } else{
-                    $_SESSION['error'] = "Campo categoria não selecionado!!";
+                    $_SESSION['error'] = $caminho;
                     header("location: adcComidas.php");
                     exit;
                 }
@@ -66,8 +82,25 @@
 
         } else{
 
+            $queryFoto = $db->prepare("SELECT comida_foto_id FROM comidas WHERE id_comida = :idcomida");
+            $queryFoto->bindValue(":idcomida", $cod);
+            $queryFoto->execute();
+            $id_foto = $queryFoto->fetchColumn();
+
+            $db->__destruct();
+
+            var_dump($id_foto);
+
+            $comida = new Comida();
+            $comida->alterarComida($cod,$_POST['nome_comida'],$_POST['categoria'],$_POST['descricao'],$_POST['preco'],$id_foto);
+    
+            header("location: ../comidas.php");
+            exit;
         }
     }
+
+    $db->__destruct();
+
 
 ?>
 
@@ -122,5 +155,8 @@
             <button type="submit">Atualizar</button>
         </form>
     </main>
+    <footer>
+        <p>Copyright (c) 2023 Vitor Zucon, Maria Eduarda</p>
+    </footer>
 </body>
 </html>

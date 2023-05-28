@@ -96,7 +96,7 @@
         </table>
     </main>
     <footer>
-        <p>Copyright (c) 2023 Vitor Zucon.</p>
+        <p>Copyright (c) 2023 Vitor Zucon, Maria Eduarda</p>
     </footer>
 </body>
 </html>

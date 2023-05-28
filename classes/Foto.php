@@ -38,6 +38,15 @@
                 }
                 
         }
+
+        public function deletarFoto($id_foto){
+            $db = new Conexao();
+            $query = $db->prepare("DELETE FROM fotos WHERE id_fotos = :id_foto");
+            $query->bindValue(":id_foto",$id_foto);
+            $query->execute();
+            $db->__destruct();
+            return true;
+        }
     }
 
 ?>

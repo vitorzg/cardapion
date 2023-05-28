@@ -99,6 +99,9 @@
         </div>
       
             <button type="submit" id="submit" name="submit">Enviar</button> 
-    </form> 
+    </form>
+    <footer>
+        <p>Copyright (c) 2023 Vitor Zucon, Maria Eduarda</p>
+    </footer> 
 </body>
 </html>

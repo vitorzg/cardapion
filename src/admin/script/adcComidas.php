@@ -117,5 +117,8 @@
             <button type="submit">Adicionar</button>
         </form>
     </main>
+    <footer>
+        <p>Copyright (c) 2023 Vitor Zucon, Maria Eduarda</p>
+    </footer>
 </body>
 </html>
